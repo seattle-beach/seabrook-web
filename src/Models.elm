@@ -5,17 +5,22 @@ import RemoteData exposing (WebData)
 
 type alias Model =
     { meetings : WebData (List Meeting)
+    , meeting : WebData Meeting
+    , route : Route
     }
 
 
-initialModel : Model
-initialMode =
+initialModel : Route -> Model
+initialModel route =
     { meetings = RemoteData.Loading
+    , meeting = RemoteData.Loading
+    , route = route
     }
 
 
-type alias MeetingDate =
-    String
+type alias MeetingDate = String
+
+type alias TopicId = Int
 
 
 type alias Meeting =

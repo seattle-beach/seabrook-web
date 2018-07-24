@@ -4,20 +4,27 @@ import Http
 import Json.Decode as Decode
 import Json.Decode.Pipeline exposing (decode, required)
 import Msgs exposing (Msg)
-import Models exposing (MeetingDate, Meeting)
+import Models exposing (MeetingDate, Meeting, Topic)
 import RemoteData
 
 
 fetchMeetings : Cmd Msg
 fetchMeetings =
-    Http.get fetchMeetingsUrl meetingsDecoder
+    Http.get (baseUrl ++ "/meetings") meetingsDecoder
         |> RemoteData.sendRequest
         |> Cmd.map Msgs.OnFetchMeetings
 
 
-fetchMeetingsUrl : String
-fetchMeetingsUrl =
-    "http://localhost:9292/meetings"
+fetchMeeting : MeetingDate -> Cmd Msg
+fetchMeeting meetingDate =
+    Http.get (baseUrl ++ "/meetings/" ++ meetingDate) meetingDecoder
+        |> RemoteData.sendRequest
+        |> Cmd.map Msgs.OnFetchMeeting
+
+
+baseUrl : String
+baseUrl =
+    "http://localhost:9292"
 
 
 meetingsDecoder : Decode.Decoder (List Meeting)
@@ -30,7 +37,6 @@ meetingDecoder =
     decode Meeting
         |> required "date" Decode.string
         |> required "title" Decode.string
-        |> required "level" Decode.int
         |> required "topics" topicsDecoder
 
 
