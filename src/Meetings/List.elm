@@ -39,18 +39,24 @@ nav =
 
 list : List Meeting -> Html Msg
 list meetings =
-    div [ class "p2" ]
-        [ table []
-            [ thead []
-                [ tr []
-                    [ th [] [ text "Date" ]
-                    , th [] [ text "Title" ]
-                    , th [] [ text "Topics" ]
-                    , th [] []
-                    ]
-                ] , tbody [] (List.map meetingRow meetings)
+    let
+        meetingRows = meetings
+            |> List.sortBy .date
+            |> List.reverse
+            |> List.map meetingRow
+    in
+        div [ class "p2" ]
+            [ table []
+                [ thead []
+                    [ tr []
+                        [ th [] [ text "Date" ]
+                        , th [] [ text "Title" ]
+                        , th [] [ text "Topics" ]
+                        , th [] []
+                        ]
+                    ] , tbody [] meetingRows
+                ]
             ]
-        ]
 
 
 meetingRow : Meeting -> Html Msg
