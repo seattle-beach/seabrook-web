@@ -10,10 +10,30 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Msgs.OnFetchMeetings response ->
-            -- on the 'model' record, update the field 'meetings' with value 'response'
             ( { model | meetings = response }, Cmd.none )
+
         Msgs.OnFetchMeeting response ->
             ( { model | meeting = response }, Cmd.none )
+
+        Msgs.OnSubmitMeeting ->
+            -- TODO
+            ( model, Cmd.none )
+
+        Msgs.OnAddMeetingDate date ->
+            ( model.meetingForm
+                |> Models.setDate date
+                |> Models.setForm model
+            , Cmd.none )
+
+        Msgs.OnAddMeetingTitle title ->
+            ( model.meetingForm
+                |> Models.setTitle title
+                |> Models.setForm model
+            , Cmd.none )
+
+        Msgs.ShowAddMeetingForm shouldShow ->
+            ( { model | showAddMeeting = shouldShow }, Cmd.none )
+
         Msgs.OnLocationChange location ->
             let
                 newRoute = parseLocation location
@@ -33,5 +53,3 @@ commandFor route =
 
         _ ->
             Cmd.none
-
-

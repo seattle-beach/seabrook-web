@@ -17,7 +17,7 @@ page : Model -> Html Msg
 page model =
     case model.route of
         MeetingsRoute ->
-            Meetings.List.view model.meetings
+            Meetings.List.view model.meetings model.showAddMeeting
 
         MeetingRoute meetingDate ->
             Meetings.Detail.view model.meeting
