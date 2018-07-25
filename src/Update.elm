@@ -1,7 +1,8 @@
 module Update exposing (..)
 
 import Msgs exposing (Msg)
-import Models exposing (Model)
+import Models exposing (Model, Route(..))
+import Commands exposing (fetchMeeting)
 import Routing exposing (parseLocation)
 
 
@@ -17,4 +18,9 @@ update msg model =
             let
                 newRoute = parseLocation location
             in
-                ( { model | route = newRoute }, Cmd.none )
+                case newRoute of
+                    MeetingRoute meetingDate ->
+                        ( { model | route = newRoute }, fetchMeeting meetingDate )
+
+                    _ ->
+                        ( { model | route = newRoute }, Cmd.none )

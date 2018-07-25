@@ -1,7 +1,7 @@
 module Main exposing (..)
 
-import Commands exposing (fetchMeetings)
-import Models exposing (Model, initialModel)
+import Commands exposing (fetchMeetings, fetchMeeting)
+import Models exposing (Model, initialModel, Route(..))
 import Msgs exposing (Msg)
 import Navigation exposing (Location)
 import Routing
@@ -14,7 +14,12 @@ init location =
     let
         currentRoute = Routing.parseLocation location
     in
-        ( initialModel currentRoute, fetchMeetings )
+        case currentRoute of
+            --MeetingRoute meetingDate ->
+                --( initialModel currentRoute, fetchMeeting meetingDate )
+
+            _ ->
+                ( initialModel currentRoute, fetchMeetings )
 
 
 subscriptions : Model -> Sub Msg
