@@ -2,6 +2,8 @@
 
 Web frontend for [Seabrook](https://github.com/seattle-beach/seabrook)
 
+Please see our development [backlog](https://www.pivotaltracker.com/n/projects/2186995)
+
 ## Development
 
 ```
