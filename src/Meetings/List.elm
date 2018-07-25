@@ -1,10 +1,11 @@
 module Meetings.List exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, href)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
 import Models exposing (Meeting)
+import Routing exposing (meetingPath)
 
 
 view : WebData (List Meeting) -> Html Msg
@@ -45,6 +46,7 @@ list meetings =
                     [ th [] [ text "Date" ]
                     , th [] [ text "Title" ]
                     , th [] [ text "Topics" ]
+                    , th [] []
                     ]
                 ] , tbody [] (List.map meetingRow meetings)
             ]
@@ -57,4 +59,10 @@ meetingRow meeting =
         [ td [] [ text meeting.date ]
         , td [] [ text meeting.title ]
         , td [] [ text (toString (List.length meeting.topics) ) ]
+        , td [] [ meetingLink meeting ]
         ]
+
+meetingLink : Meeting -> Html Msg
+meetingLink meeting =
+    a [ href (meetingPath meeting.date), class "button" ]
+        [ text "view topics" ]
