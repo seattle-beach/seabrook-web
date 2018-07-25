@@ -1,7 +1,8 @@
 module Update exposing (..)
 
 import Msgs exposing (Msg)
-import Models exposing (Model)
+import Models exposing (Model, Route(..))
+import Commands exposing (..)
 import Routing exposing (parseLocation)
 
 
@@ -16,5 +17,21 @@ update msg model =
         Msgs.OnLocationChange location ->
             let
                 newRoute = parseLocation location
+                command = commandFor newRoute
             in
-                ( { model | route = newRoute }, Cmd.none )
+                ( { model | route = newRoute }, command )
+
+
+commandFor : Route -> Cmd Msg
+commandFor route =
+    case route of
+        MeetingRoute meetingDate ->
+            fetchMeeting meetingDate
+
+        MeetingsRoute ->
+            fetchMeetings
+
+        _ ->
+            Cmd.none
+
+

@@ -1,4 +1,4 @@
-module Commands exposing (..)
+module Commands exposing (fetchMeetings, fetchMeeting)
 
 import Http
 import Json.Decode as Decode

@@ -1,11 +1,11 @@
 module Main exposing (..)
 
-import Commands exposing (fetchMeetings)
-import Models exposing (Model, initialModel)
+import Commands exposing (fetchMeetings, fetchMeeting)
+import Models exposing (Model, initialModel, Route(..))
 import Msgs exposing (Msg)
 import Navigation exposing (Location)
 import Routing
-import Update exposing (update)
+import Update exposing (..)
 import View exposing (view)
 
 
@@ -13,8 +13,9 @@ init : Location -> ( Model, Cmd Msg )
 init location =
     let
         currentRoute = Routing.parseLocation location
+        command = commandFor currentRoute
     in
-        ( initialModel currentRoute, fetchMeetings )
+        ( initialModel currentRoute, command )
 
 
 subscriptions : Model -> Sub Msg
