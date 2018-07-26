@@ -68,7 +68,7 @@ type alias Meeting =
 
 
 type alias Topic =
-    { id : Int
+    { id : TopicId
     , content : String
     , votes : Int
     }

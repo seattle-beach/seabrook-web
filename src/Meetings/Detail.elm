@@ -2,10 +2,10 @@ module Meetings.Detail exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, type_, placeholder, value)
-import Html.Events exposing (onSubmit, onInput)
+import Html.Events exposing (onSubmit, onInput, onClick)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
-import Models exposing (Meeting, Topic, TopicForm)
+import Models exposing (Meeting, Topic, TopicForm, MeetingDate)
 
 
 view : WebData Meeting -> TopicForm -> Html Msg
@@ -66,15 +66,15 @@ show meeting formData =
                     , th [] [ text "Votes" ]
                     , th [] []
                     ]
-                ] , tbody [] (List.map topicRow meeting.topics)
+                ] , tbody [] (List.map (topicRow meeting.date) meeting.topics)
             ]
         ]
 
 
-topicRow : Topic -> Html Msg
-topicRow topic =
+topicRow : MeetingDate -> Topic -> Html Msg
+topicRow meetingDate topic =
     tr []
         [ td [] [ text topic.content ]
         , td [] [ text (toString topic.votes) ]
-        , td [] [ button [] [ text "+1" ] ]
+        , td [] [ button [ onClick (Msgs.OnTopicVote meetingDate topic.id) ] [ text "+1" ] ]
         ]

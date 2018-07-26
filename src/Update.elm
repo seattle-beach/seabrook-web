@@ -31,6 +31,9 @@ update msg model =
                 |> Models.setTopicForm model
             , Cmd.none )
 
+        Msgs.OnTopicVote date topicId ->
+            ( model, voteTopic date topicId )
+
         Msgs.OnPostMeeting response ->
             case response of
                 RemoteData.Success meeting ->

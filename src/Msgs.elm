@@ -1,6 +1,6 @@
 module Msgs exposing (..)
 
-import Models exposing (Meeting, MeetingDate)
+import Models exposing (Meeting, MeetingDate, TopicId)
 import Navigation exposing (Location)
 import RemoteData exposing (WebData)
 
@@ -16,4 +16,5 @@ type Msg
     | OnAddMeetingTitle String
     | DoSubmitTopic MeetingDate
     | OnAddTopicContent String
+    | OnTopicVote MeetingDate TopicId
     | OnLocationChange Location

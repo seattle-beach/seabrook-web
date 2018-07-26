@@ -1,4 +1,4 @@
-module Commands exposing (fetchMeetings, fetchMeeting, postMeeting, postTopic)
+module Commands exposing (fetchMeetings, fetchMeeting, postMeeting, postTopic, voteTopic)
 
 import Http
 import Json.Decode as Decode
@@ -36,6 +36,15 @@ postTopic : MeetingDate -> TopicForm -> Cmd Msg
 postTopic date topicForm =
     Http.post (baseUrl ++ "/meetings/" ++ date ++ "/topics")
         (Http.jsonBody <| topicEncoder topicForm)
+        meetingDecoder
+        |> RemoteData.sendRequest
+        |> Cmd.map Msgs.OnFetchMeeting
+
+
+voteTopic : MeetingDate -> TopicId -> Cmd Msg
+voteTopic date topicId =
+    Http.post (baseUrl ++ "/meetings/" ++ date ++ "/topics/" ++ (toString topicId))
+        Http.emptyBody
         meetingDecoder
         |> RemoteData.sendRequest
         |> Cmd.map Msgs.OnFetchMeeting
