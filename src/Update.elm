@@ -4,20 +4,28 @@ import Msgs exposing (Msg)
 import Models exposing (Model, Route(..))
 import Commands exposing (..)
 import Routing exposing (parseLocation)
+import RemoteData
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Msgs.OnFetchMeetings response ->
-            ( { model | meetings = response }, Cmd.none )
+            ( { model | meetings = response, showAddMeeting = False }, Cmd.none )
 
         Msgs.OnFetchMeeting response ->
             ( { model | meeting = response }, Cmd.none )
 
         Msgs.OnSubmitMeeting ->
-            -- TODO
-            ( model, Cmd.none )
+            ( model, postMeeting model.meetingForm )
+
+        Msgs.OnPostMeeting response ->
+            case response of
+                RemoteData.Success meeting ->
+                    ( model, fetchMeetings )
+
+                _ ->
+                    ( model, Cmd.none )
 
         Msgs.OnAddMeetingDate date ->
             ( model.meetingForm

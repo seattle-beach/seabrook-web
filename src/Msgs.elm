@@ -11,6 +11,7 @@ type Msg
     | OnFetchMeeting (WebData Meeting)
     | ShowAddMeetingForm Bool
     | OnSubmitMeeting
+    | OnPostMeeting (WebData Meeting)
     | OnAddMeetingDate MeetingDate
     | OnAddMeetingTitle String
     | OnLocationChange Location

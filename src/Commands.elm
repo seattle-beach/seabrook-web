@@ -1,10 +1,11 @@
-module Commands exposing (fetchMeetings, fetchMeeting)
+module Commands exposing (fetchMeetings, fetchMeeting, postMeeting)
 
 import Http
 import Json.Decode as Decode
 import Json.Decode.Pipeline exposing (decode, required)
+import Json.Encode exposing (object, string, Value, encode)
 import Msgs exposing (Msg)
-import Models exposing (MeetingDate, Meeting, Topic)
+import Models exposing (MeetingDate, Meeting, Topic, MeetingForm)
 import RemoteData
 
 
@@ -20,6 +21,21 @@ fetchMeeting meetingDate =
     Http.get (baseUrl ++ "/meetings/" ++ meetingDate) meetingDecoder
         |> RemoteData.sendRequest
         |> Cmd.map Msgs.OnFetchMeeting
+
+
+postMeeting : MeetingForm -> Cmd Msg
+postMeeting meetingForm =
+    Http.post (baseUrl ++ "/meetings/" ++ meetingForm.date)
+        (Http.jsonBody <| meetingEncoder meetingForm)
+        meetingDecoder
+        |> RemoteData.sendRequest
+        |> Cmd.map Msgs.OnPostMeeting
+
+
+meetingEncoder : MeetingForm -> Value
+meetingEncoder meeting =
+    object
+        [ ( "title", string meeting.title ) ]
 
 
 baseUrl : String
