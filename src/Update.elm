@@ -14,7 +14,10 @@ update msg model =
             ( { model | meetings = response, showAddMeeting = False }, Cmd.none )
 
         Msgs.OnFetchMeeting response ->
-            ( { model | meeting = response }, Cmd.none )
+            let
+                emptyForm = Models.setContent "" model.topicForm
+            in
+              ( { model | meeting = response, topicForm = emptyForm }, Cmd.none )
 
         Msgs.DoSubmitMeeting ->
             ( model, postMeeting model.meetingForm )

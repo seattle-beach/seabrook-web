@@ -20,7 +20,7 @@ page model =
             Meetings.List.view model.meetings model.showAddMeeting
 
         MeetingRoute meetingDate ->
-            Meetings.Detail.view model.meeting
+            Meetings.Detail.view model.meeting model.topicForm
 
         NotFoundRoute ->
             notFoundView
