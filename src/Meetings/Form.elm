@@ -7,7 +7,7 @@ import Msgs exposing (Msg)
 
 meetingForm : Html Msg
 meetingForm =
-    form [ onSubmit Msgs.OnSubmitMeeting ]
+    form [ onSubmit Msgs.DoSubmitMeeting ]
         [ input [ type_ "date", onInput Msgs.OnAddMeetingDate ] []
         , input [ type_ "text", onInput Msgs.OnAddMeetingTitle ] []
         , button [ type_ "submit" ] [ text "Create Meeting" ]

@@ -10,7 +10,7 @@ type Msg
     = OnFetchMeetings (WebData (List Meeting))
     | OnFetchMeeting (WebData Meeting)
     | ShowAddMeetingForm Bool
-    | OnSubmitMeeting
+    | DoSubmitMeeting
     | OnPostMeeting (WebData Meeting)
     | OnAddMeetingDate MeetingDate
     | OnAddMeetingTitle String

@@ -16,7 +16,7 @@ update msg model =
         Msgs.OnFetchMeeting response ->
             ( { model | meeting = response }, Cmd.none )
 
-        Msgs.OnSubmitMeeting ->
+        Msgs.DoSubmitMeeting ->
             ( model, postMeeting model.meetingForm )
 
         Msgs.OnPostMeeting response ->
