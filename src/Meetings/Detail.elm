@@ -66,10 +66,16 @@ show meeting formData =
                     , th [] [ text "Votes" ]
                     , th [] []
                     ]
-                ] , tbody [] (List.map (topicRow meeting.date) meeting.topics)
+                ] , tbody [] (topicRows meeting)
             ]
         ]
 
+topicRows : Meeting -> (List (Html Msg))
+topicRows meeting =
+    meeting.topics
+        |> List.sortBy .votes
+        |> List.reverse
+        |> List.map (topicRow meeting.date)
 
 topicRow : MeetingDate -> Topic -> Html Msg
 topicRow meetingDate topic =
