@@ -57,5 +57,5 @@ topicRow topic =
     tr []
         [ td [] [ text topic.content ]
         , td [] [ text (toString topic.votes) ]
-        , td [] [ text "placeholder for voting button" ]
+        , td [] [ button [] [ text "+1" ] ]
         ]
