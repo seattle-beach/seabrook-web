@@ -8,6 +8,7 @@ type alias Model =
     , meeting : WebData Meeting
     , showAddMeeting : Bool
     , meetingForm : MeetingForm
+    , topicForm : TopicForm
     , route : Route
     }
 
@@ -17,6 +18,20 @@ type alias MeetingForm =
     , title : String
     }
 
+
+type alias TopicForm =
+    { content : String
+    }
+
+
+setContent : String -> TopicForm -> TopicForm
+setContent content topicForm =
+    {topicForm | content = content}
+
+setTopicForm : Model -> TopicForm -> Model
+setTopicForm model topicForm =
+    {model | topicForm = topicForm}
+
 setDate : MeetingDate -> MeetingForm -> MeetingForm
 setDate date meetingForm =
     {meetingForm | date = date}
@@ -25,8 +40,8 @@ setTitle : String -> MeetingForm -> MeetingForm
 setTitle title meetingForm =
     {meetingForm | title = title}
 
-setForm : Model -> MeetingForm -> Model
-setForm model meetingForm =
+setMeetingForm : Model -> MeetingForm -> Model
+setMeetingForm model meetingForm =
     {model | meetingForm = meetingForm}
 
 initialModel : Route -> Model
@@ -35,6 +50,7 @@ initialModel route =
     , meeting = RemoteData.Loading
     , showAddMeeting = False
     , meetingForm = { date = "", title = "" }
+    , topicForm = { content = "" }
     , route = route
     }
 

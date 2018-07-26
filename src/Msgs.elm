@@ -14,4 +14,6 @@ type Msg
     | OnPostMeeting (WebData Meeting)
     | OnAddMeetingDate MeetingDate
     | OnAddMeetingTitle String
+    | DoSubmitTopic MeetingDate
+    | OnAddTopicContent String
     | OnLocationChange Location

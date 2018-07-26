@@ -19,6 +19,15 @@ update msg model =
         Msgs.DoSubmitMeeting ->
             ( model, postMeeting model.meetingForm )
 
+        Msgs.DoSubmitTopic date ->
+            ( model, postTopic date model.topicForm )
+
+        Msgs.OnAddTopicContent content ->
+            ( model.topicForm
+                |> Models.setContent content
+                |> Models.setTopicForm model
+            , Cmd.none )
+
         Msgs.OnPostMeeting response ->
             case response of
                 RemoteData.Success meeting ->
@@ -30,13 +39,13 @@ update msg model =
         Msgs.OnAddMeetingDate date ->
             ( model.meetingForm
                 |> Models.setDate date
-                |> Models.setForm model
+                |> Models.setMeetingForm model
             , Cmd.none )
 
         Msgs.OnAddMeetingTitle title ->
             ( model.meetingForm
                 |> Models.setTitle title
-                |> Models.setForm model
+                |> Models.setMeetingForm model
             , Cmd.none )
 
         Msgs.ShowAddMeetingForm shouldShow ->

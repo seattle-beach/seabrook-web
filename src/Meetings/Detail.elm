@@ -1,7 +1,8 @@
 module Meetings.Detail exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, type_)
+import Html.Events exposing (onSubmit, onInput)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
 import Models exposing (Meeting, Topic)
@@ -36,10 +37,19 @@ nav =
         [ div [ class "left p2" ] [ text "Meeting Detail" ] ]
 
 
+newTopicForm : Meeting -> Html Msg
+newTopicForm meeting =
+    form [ onSubmit (Msgs.DoSubmitTopic meeting.date) ]
+        [ input [ type_ "text", onInput Msgs.OnAddTopicContent ] []
+        , button [ type_ "submit" ] [ text "Add Topic" ]
+        ]
+
+
 show : Meeting -> Html Msg
 show meeting =
     div [ class "p2" ]
         [ text (String.join " " [ meeting.date, "-", meeting.title ])
+        , newTopicForm meeting
         , table []
             [ thead []
                 [ tr []
