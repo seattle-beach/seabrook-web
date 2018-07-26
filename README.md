@@ -18,3 +18,6 @@ https://www.elm-tutorial.org/en/
 
 Elm library docs tend to live around here:
 http://package.elm-lang.org/packages/elm-lang/html/2.0.0/Html
+
+Also a bunch of convenient examples:
+http://elm-lang.org/examples
