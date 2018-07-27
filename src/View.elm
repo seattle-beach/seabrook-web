@@ -1,14 +1,20 @@
-module View exposing (..)
+module View exposing (view)
 
-import Html exposing (Html, div, text)
+import Html
+import Html.Styled exposing (Html, div, text, toUnstyled)
 import Msgs exposing (Msg)
 import Models exposing (..)
 import Meetings.List
 import Meetings.Detail
 
 
-view : Model -> Html Msg
+view : Model -> Html.Html Msg
 view model =
+    toUnstyled <| styledView model
+
+
+styledView : Model -> Html Msg
+styledView model =
     div []
         [ page model ]
 

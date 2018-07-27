@@ -1,40 +1,34 @@
 module Meetings.Detail exposing (..)
 
-import Html exposing (..)
-import Html.Attributes exposing (class, type_, placeholder, value)
-import Html.Events exposing (onSubmit, onInput, onClick)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (class, type_, placeholder, value)
+import Html.Styled.Events exposing (onSubmit, onInput, onClick)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
 import Models exposing (Meeting, Topic, TopicForm, MeetingDate)
+import Layout.Nav exposing (navHeader)
 
 
 view : WebData Meeting -> TopicForm -> Html Msg
 view response formData =
     div []
-        [ nav
-        , maybeMeeting response formData
-        ]
+        (maybeMeeting response formData)
 
 
-maybeMeeting : WebData Meeting -> TopicForm -> Html Msg
+maybeMeeting : WebData Meeting -> TopicForm -> List (Html Msg)
 maybeMeeting response formData =
     case response of
         RemoteData.NotAsked ->
-            text ""
+            [ navHeader Nothing, text "" ]
 
         RemoteData.Loading ->
-            text "Loading..."
+            [ navHeader Nothing, text "Loading..." ]
 
         RemoteData.Success meeting ->
-            show meeting formData
+            [ navHeader (Just meeting.title), show meeting formData ]
 
         RemoteData.Failure error ->
-            text (toString error)
-
-nav : Html Msg
-nav =
-    div [ class "clearfix mb2 white bg-black" ]
-        [ div [ class "left p2" ] [ text "Meeting Detail" ] ]
+            [ navHeader Nothing, text (toString error) ]
 
 
 newTopicForm : Meeting -> TopicForm -> Html Msg

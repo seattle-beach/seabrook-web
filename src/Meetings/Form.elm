@@ -1,8 +1,8 @@
 module Meetings.Form exposing (..)
 
-import Html exposing (..)
-import Html.Attributes exposing (type_, placeholder)
-import Html.Events exposing (onSubmit, onInput)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (type_, placeholder)
+import Html.Styled.Events exposing (onSubmit, onInput)
 import Msgs exposing (Msg)
 
 meetingForm : Html Msg

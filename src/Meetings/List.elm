@@ -1,19 +1,20 @@
 module Meetings.List exposing (..)
 
-import Html exposing (..)
-import Html.Attributes exposing (class, href)
-import Html.Events exposing(onClick)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (class, href)
+import Html.Styled.Events exposing(onClick)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
 import Models exposing (Meeting)
 import Routing exposing (meetingPath)
 import Meetings.Form exposing (meetingForm)
+import Layout.Nav exposing (navHeader)
 
 
 view : WebData (List Meeting) -> Bool -> Html Msg
 view response showAddMeeting =
     div []
-        [ nav
+        [ navHeader (Just "Meetings")
         , addMeetingForm showAddMeeting
         , maybeList response
         ]
@@ -33,11 +34,6 @@ maybeList response =
 
         RemoteData.Failure error ->
             text (toString error)
-
-nav : Html Msg
-nav =
-    div [ class "clearfix mb2 white bg-black" ]
-        [ div [ class "left p2" ] [ text "Meetings" ] ]
 
 addMeetingForm : Bool -> Html Msg
 addMeetingForm showAddMeeting =
@@ -63,7 +59,6 @@ list meetings =
                     [ tr []
                         [ th [] [ text "Date" ]
                         , th [] [ text "Title" ]
-                        , th [] [ text "Topics" ]
                         , th [] []
                         ]
                     ] , tbody [] meetingRows
@@ -76,7 +71,6 @@ meetingRow meeting =
     tr []
         [ td [] [ text meeting.date ]
         , td [] [ text meeting.title ]
-        , td [] [ text (toString (List.length meeting.topics) ) ]
         , td [] [ meetingLink meeting ]
         ]
 
