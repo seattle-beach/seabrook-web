@@ -3,7 +3,7 @@ module Layout.Nav exposing (..)
 import Msgs exposing (Msg)
 import Css exposing (..)
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css)
+import Html.Styled.Attributes exposing (css, src)
 
 navHeader : Maybe String -> Html Msg
 navHeader maybe =
@@ -14,9 +14,14 @@ navHeader maybe =
     in
         div
         [ css
-            [ backgroundColor theme.primary ]
+            [ backgroundColor theme.primary
+            , fontSize (px 36)
+            , padding (px 8)
+            , marginBottom (px 8)
+            ]
         ]
-        [ text title ]
+        [ img [ src "/assets/home.svg", css [ height (px 36), margin2 zero (px 16) ] ] []
+        , text title ]
 
 theme : { primary : Color, secondary : Color }
 theme =
