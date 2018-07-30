@@ -20,7 +20,7 @@ navHeader maybe =
             , marginBottom (px 8)
             ]
         ]
-        [ img [ src "/assets/home.svg", css [ height (px 36), margin2 zero (px 16) ] ] []
+        [ img [ src "/assets/home.svg", css [ height (px 24), margin4 zero (px 16) zero (px 8) ] ] []
         , text title ]
 
 theme : { primary : Color, secondary : Color }
