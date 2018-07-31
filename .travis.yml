@@ -1,0 +1,13 @@
+language: node_js
+script: yarn install && yarn build
+deploy:
+  provider: cloudfoundry
+  api: https://api.run.pivotal.io
+  username: alidaka@pivotal.io
+  password:
+    secure: mLhSdxlwB/5mRrOi3N5IQprNDzl0F0SvM3rhEuYCmuWDoZmIiWl+xnfYabiO5hhKXcUC1KNthPkpAenPgsewV7L38Q795wNHIM8QvA03I0jo7ZQ+3DBKaxMpdp4hFOWwoi/ZnlOak358jHO043GeILnp/+txGazCVts2KUJc4Ft/syBPkx7TOiRMTGYtks8LB+cX6HFnmRD9Jh7byPpTYHwBoaAp6MJyTQ7HbfJDaeX19+saKVBkq3ONgEBKqSBdez9ShfKuf4CaHVu9aB2jNzz9NGSL+i11HG/aWJdeWzaNivb6E2Wk8bVS7ChOtJIHTvnm5vkFu9UqdHvi11wqADNKuE/GzKuvi2xi7iB1yPNuQfDwYD4VpjefkkNeoTzls2GX+uVP09U7biIzpY/IFKlD4XrSg8NgjmhBSpfmQhiuIeaT5HKG0L12hmHY/+FWQwpQ2tipIKDyPcFjZr8jdJrQtowMrdILKK7lK/Z1MJ3MtHQTBblsb/zxutciVjW57vCGBZZ7DFPmcd5IjzLz5Td84a+9GBieokDBiBPOwGJ31u7AIX4jbyNMM7FenL9GcUEhDLCbWzt64GSWmb5XUtNoqjWtCK+90/mhCJTHj0dWJpJTvLqpkUAvlzE2GVKVGyBreL8ntinno+L4S5Kw8+Wlxxd+dUvuxWq53A3iHIA=
+  organization: seattle-beach
+  space: book-club
+  on:
+    repo: seattle-beach/seabrook-web
+    branch: master

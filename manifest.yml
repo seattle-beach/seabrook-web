@@ -1,0 +1,7 @@
+applications:
+- name: seabrook-web
+  buildpack: staticfile_buildpack
+  routes:
+    - route: seabrook.cfapps.io
+  memory: 256M
+  path: dist
