@@ -1,17 +1,18 @@
 module Meetings.List exposing (..)
 
-import Css exposing (marginTop, px)
+import Css exposing (marginBottom, px, rgba, backgroundColor, marginRight)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, href)
 import Html.Styled.Events exposing(onClick)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
-import Models exposing (Meeting)
+import Models exposing (Meeting, MeetingDate)
 import Routing exposing (meetingPath)
 import Meetings.Form exposing (meetingForm)
 import Layout.Nav exposing (..)
 import Layout.Button exposing (button_)
 import Layout.Table exposing (..)
+import Layout.Theme exposing (..)
 
 
 view : WebData (List Meeting) -> Bool -> Html Msg
@@ -39,12 +40,15 @@ maybeList response =
 
 addMeetingForm : Bool -> Html Msg
 addMeetingForm showAddMeeting =
-    if showAddMeeting then
-        div []
-            [ meetingForm ]
-    else
-        button_ [ onClick (Msgs.ShowAddMeetingForm True) ]
-            [ text "Add Meeting" ]
+    let
+        content = if showAddMeeting then
+            meetingForm
+        else
+            button_ [ onClick (Msgs.ShowAddMeetingForm True) ]
+                [ text "Add Meeting" ]
+    in
+        div [ css [ marginBottom (px 16) ] ]
+            [ content ]
 
 
 list : List Meeting -> Html Msg
@@ -55,28 +59,21 @@ list meetings =
             |> List.reverse
             |> List.map meetingRow
     in
-        div []
-            [ table_ []
-                [ thead_ []
-                    [ tr_ []
-                        [ th_ [] [ text "Date" ]
-                        , th_ [] [ text "Title" ]
-                        , th_ [] []
-                        ]
-                    ] , tbody_ [] meetingRows
-                ]
-            ]
+        div [] meetingRows
 
 
 meetingRow : Meeting -> Html Msg
 meetingRow meeting =
-    tr_ []
-        [ td_ [] [ text meeting.date ]
-        , td_ [] [ text meeting.title ]
-        , td_ [] [ meetingLink meeting ]
+    div []
+        [ a [ href (meetingPath meeting.date) ]
+            [ tapTarget [ viewDate meeting.date, text meeting.title ]
+            ]
         ]
 
-meetingLink : Meeting -> Html Msg
-meetingLink meeting =
-    a [ href (meetingPath meeting.date) ]
-        [ button_ [] [text "view topics"] ]
+viewDate : MeetingDate -> Html Msg
+viewDate date =
+    span
+        [ css
+            [ marginRight (px 8) ]
+        ]
+        [ text date ]

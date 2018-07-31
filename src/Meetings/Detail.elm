@@ -50,13 +50,7 @@ show meeting formData =
     div []
         [ newTopicForm meeting formData
         , table_ []
-            [ thead_ []
-                [ tr_ []
-                    [ th_ [] [ text "Topic" ]
-                    , th_ [] [ text "Votes" ]
-                    , th_ [] []
-                    ]
-                ] , tbody_ [] (topicRows meeting)
+            [ tbody_ [] (topicRows meeting)
             ]
         ]
 
