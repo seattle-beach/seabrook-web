@@ -1,6 +1,7 @@
 var path = require("path");
 
 module.exports = {
+  mode: 'production',
   entry: {
     app: [
       './src/assets/index.js'
@@ -22,7 +23,7 @@ module.exports = {
         ]
       },
       {
-        test:    /\.html$/,
+        test:    /\.(html|svg)$/,
         exclude: /node_modules/,
         loader:  'file-loader?name=[name].[ext]',
       },

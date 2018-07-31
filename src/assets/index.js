@@ -1,7 +1,10 @@
 'use strict';
 
-// Require index.html so it gets copied to dist
+// Require assets so they get copied to dist
 require('./index.html');
+require('./home.svg');
+require('./reset.css');
+require('./global.css');
 
 var Elm = require('./../Main.elm');
 var mountNode = document.getElementById('main');

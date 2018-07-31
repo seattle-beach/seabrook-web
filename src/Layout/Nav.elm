@@ -30,7 +30,7 @@ homeIcon =
     a
         [ href "/" ]
         [ img
-            [ src "/src/assets/home.svg"
+            [ src "/home.svg"
             , css
                 [ height (px 24)
                 , margin4 zero (px 16) zero (px 8)
