@@ -13,7 +13,7 @@ button_ attributes children =
           , backgroundColor theme.primary
           -- TODO: I don't understand types well enough to know why this doesn't work
           -- , border none
-          , border (px 0)
+          , border zero
           , borderRadius (px 4)
           , hover [ backgroundColor <| lighten_ theme.primary 100 ]
           , active [ backgroundColor theme.primary ]
