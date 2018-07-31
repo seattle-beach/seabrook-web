@@ -1,21 +1,22 @@
 module Meetings.List exposing (..)
 
+import Css exposing (marginTop, px)
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (class, href)
+import Html.Styled.Attributes exposing (css, href)
 import Html.Styled.Events exposing(onClick)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
 import Models exposing (Meeting)
 import Routing exposing (meetingPath)
 import Meetings.Form exposing (meetingForm)
-import Layout.Nav exposing (navHeader)
+import Layout.Nav exposing (..)
+import Layout.Button exposing (button_)
 
 
 view : WebData (List Meeting) -> Bool -> Html Msg
 view response showAddMeeting =
-    div []
-        [ navHeader (Just "Meetings")
-        , addMeetingForm showAddMeeting
+    page (Just "Meetings")
+        [ addMeetingForm showAddMeeting
         , maybeList response
         ]
 
@@ -41,7 +42,7 @@ addMeetingForm showAddMeeting =
         div []
             [ meetingForm ]
     else
-        button [ onClick (Msgs.ShowAddMeetingForm True) ]
+        button_ [ onClick (Msgs.ShowAddMeetingForm True) ]
             [ text "Add Meeting" ]
 
 
@@ -53,8 +54,8 @@ list meetings =
             |> List.reverse
             |> List.map meetingRow
     in
-        div [ class "p2" ]
-            [ table []
+        div []
+            [ table [ css [ marginTop (px 16) ] ]
                 [ thead []
                     [ tr []
                         [ th [] [ text "Date" ]
@@ -76,5 +77,5 @@ meetingRow meeting =
 
 meetingLink : Meeting -> Html Msg
 meetingLink meeting =
-    a [ href (meetingPath meeting.date), class "button" ]
-        [ button [] [text "view topics"] ]
+    a [ href (meetingPath meeting.date) ]
+        [ button_ [] [text "view topics"] ]

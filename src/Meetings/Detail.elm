@@ -1,41 +1,37 @@
 module Meetings.Detail exposing (..)
 
+import Css exposing (marginTop, px)
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (class, type_, placeholder, value)
+import Html.Styled.Attributes exposing (css, type_, placeholder, value)
 import Html.Styled.Events exposing (onSubmit, onInput, onClick)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
 import Models exposing (Meeting, Topic, TopicForm, MeetingDate)
-import Layout.Nav exposing (navHeader)
+import Layout.Nav exposing (..)
+import Layout.Button exposing (..)
 
 
 view : WebData Meeting -> TopicForm -> Html Msg
 view response formData =
-    div []
-        (maybeMeeting response formData)
-
-
-maybeMeeting : WebData Meeting -> TopicForm -> List (Html Msg)
-maybeMeeting response formData =
     case response of
         RemoteData.NotAsked ->
-            [ navHeader Nothing, text "" ]
+            page Nothing [ text "" ]
 
         RemoteData.Loading ->
-            [ navHeader Nothing, text "Loading..." ]
+            page Nothing [ text "Loading..." ]
 
         RemoteData.Success meeting ->
-            [ navHeader (Just meeting.title), show meeting formData ]
+            page (Just (String.join " " [ meeting.date, meeting.title ])) [ show meeting formData ]
 
         RemoteData.Failure error ->
-            [ navHeader Nothing, text (toString error) ]
+            page Nothing [ text (toString error) ]
 
 
 newTopicForm : Meeting -> TopicForm -> Html Msg
 newTopicForm meeting formData =
     form [ onSubmit (Msgs.DoSubmitTopic meeting.date) ]
         [ inputField formData
-        , button [ type_ "submit" ] [ text "Add Topic" ]
+        , button_ [ type_ "submit" ] [ text "Add Topic" ]
         ]
 
 inputField : TopicForm -> Html Msg
@@ -50,10 +46,9 @@ inputField formData =
 
 show : Meeting -> TopicForm -> Html Msg
 show meeting formData =
-    div [ class "p2" ]
-        [ text (String.join " " [ meeting.date, "-", meeting.title ])
-        , newTopicForm meeting formData
-        , table []
+    div []
+        [ newTopicForm meeting formData
+        , table [ css [ marginTop (px 16) ] ]
             [ thead []
                 [ tr []
                     [ th [] [ text "Topic" ]
@@ -76,5 +71,5 @@ topicRow meetingDate topic =
     tr []
         [ td [] [ text topic.content ]
         , td [] [ text (toString topic.votes) ]
-        , td [] [ button [ onClick (Msgs.OnTopicVote meetingDate topic.id) ] [ text "+1" ] ]
+        , td [] [ button_ [ onClick (Msgs.OnTopicVote meetingDate topic.id) ] [ text "+1" ] ]
         ]
