@@ -3,7 +3,7 @@ var path = require("path");
 module.exports = {
   entry: {
     app: [
-      './assets/index.js'
+      './src/assets/index.js'
     ]
   },
 
