@@ -9,6 +9,7 @@ import Msgs exposing (Msg)
 import Models exposing (Meeting, Topic, TopicForm, MeetingDate)
 import Layout.Nav exposing (..)
 import Layout.Button exposing (..)
+import Layout.Table exposing (..)
 
 
 view : WebData Meeting -> TopicForm -> Html Msg
@@ -48,14 +49,14 @@ show : Meeting -> TopicForm -> Html Msg
 show meeting formData =
     div []
         [ newTopicForm meeting formData
-        , table [ css [ marginTop (px 16) ] ]
-            [ thead []
-                [ tr []
-                    [ th [] [ text "Topic" ]
-                    , th [] [ text "Votes" ]
-                    , th [] []
+        , table_ []
+            [ thead_ []
+                [ tr_ []
+                    [ th_ [] [ text "Topic" ]
+                    , th_ [] [ text "Votes" ]
+                    , th_ [] []
                     ]
-                ] , tbody [] (topicRows meeting)
+                ] , tbody_ [] (topicRows meeting)
             ]
         ]
 
@@ -68,8 +69,8 @@ topicRows meeting =
 
 topicRow : MeetingDate -> Topic -> Html Msg
 topicRow meetingDate topic =
-    tr []
-        [ td [] [ text topic.content ]
-        , td [] [ text (toString topic.votes) ]
-        , td [] [ button_ [ onClick (Msgs.OnTopicVote meetingDate topic.id) ] [ text "+1" ] ]
+    tr_ []
+        [ td_ [] [ text topic.content ]
+        , td_ [] [ text (toString topic.votes) ]
+        , td_ [] [ button_ [ onClick (Msgs.OnTopicVote meetingDate topic.id) ] [ text "+1" ] ]
         ]

@@ -11,6 +11,7 @@ import Routing exposing (meetingPath)
 import Meetings.Form exposing (meetingForm)
 import Layout.Nav exposing (..)
 import Layout.Button exposing (button_)
+import Layout.Table exposing (..)
 
 
 view : WebData (List Meeting) -> Bool -> Html Msg
@@ -55,24 +56,24 @@ list meetings =
             |> List.map meetingRow
     in
         div []
-            [ table [ css [ marginTop (px 16) ] ]
-                [ thead []
-                    [ tr []
-                        [ th [] [ text "Date" ]
-                        , th [] [ text "Title" ]
-                        , th [] []
+            [ table_ []
+                [ thead_ []
+                    [ tr_ []
+                        [ th_ [] [ text "Date" ]
+                        , th_ [] [ text "Title" ]
+                        , th_ [] []
                         ]
-                    ] , tbody [] meetingRows
+                    ] , tbody_ [] meetingRows
                 ]
             ]
 
 
 meetingRow : Meeting -> Html Msg
 meetingRow meeting =
-    tr []
-        [ td [] [ text meeting.date ]
-        , td [] [ text meeting.title ]
-        , td [] [ meetingLink meeting ]
+    tr_ []
+        [ td_ [] [ text meeting.date ]
+        , td_ [] [ text meeting.title ]
+        , td_ [] [ meetingLink meeting ]
         ]
 
 meetingLink : Meeting -> Html Msg
