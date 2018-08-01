@@ -8,8 +8,9 @@ cache:
     - sysconfcpus
     - node_modules
 
+# build time improvement see: https://git.io/vQcqz
 before_install:
-  - | # build time improvement see: https://git.io/vQcqz
+  - |
     if [ ! -d sysconfcpus/bin ];
     then
       git clone https://github.com/obmarg/libsysconfcpus.git;
@@ -19,6 +20,7 @@ before_install:
       cd ..;
     fi
 
+# build time improvement see: https://git.io/fNoua
 install:
   - yarn install
   - mv $(yarn bin)/webpack $(yarn bin)/webpack-old
