@@ -5,6 +5,7 @@ import Models exposing (Model, Route(..))
 import Commands exposing (..)
 import Routing exposing (parseLocation)
 import RemoteData
+import Flags exposing (Flags)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -20,10 +21,10 @@ update msg model =
               ( { model | meeting = response, topicForm = emptyForm }, Cmd.none )
 
         Msgs.DoSubmitMeeting ->
-            ( model, postMeeting model.meetingForm )
+            ( model, postMeeting model.flags model.meetingForm )
 
         Msgs.DoSubmitTopic date ->
-            ( model, postTopic date model.topicForm )
+            ( model, postTopic model.flags date model.topicForm )
 
         Msgs.OnAddTopicContent content ->
             ( model.topicForm
@@ -32,12 +33,12 @@ update msg model =
             , Cmd.none )
 
         Msgs.OnTopicVote date topicId ->
-            ( model, voteTopic date topicId )
+            ( model, voteTopic model.flags date topicId )
 
         Msgs.OnPostMeeting response ->
             case response of
                 RemoteData.Success meeting ->
-                    ( model, fetchMeetings )
+                    ( model, fetchMeetings model.flags )
 
                 _ ->
                     ( model, Cmd.none )
@@ -62,17 +63,17 @@ update msg model =
                 newRoute = parseLocation location
                 command = commandFor newRoute
             in
-                ( { model | route = newRoute }, command )
+                ( { model | route = newRoute }, command model.flags )
 
 
-commandFor : Route -> Cmd Msg
+commandFor : Route -> (Flags -> Cmd Msg)
 commandFor route =
     case route of
         MeetingRoute meetingDate ->
-            fetchMeeting meetingDate
+            meetingDate |> flip fetchMeeting
 
         MeetingsRoute ->
             fetchMeetings
 
         _ ->
-            Cmd.none
+            \_ -> Cmd.none

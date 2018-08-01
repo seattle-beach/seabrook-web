@@ -1,6 +1,7 @@
 module Models exposing (..)
 
 import RemoteData exposing (WebData)
+import Flags exposing (Flags)
 
 
 type alias Model =
@@ -9,6 +10,7 @@ type alias Model =
     , showAddMeeting : Bool
     , meetingForm : MeetingForm
     , topicForm : TopicForm
+    , flags : Flags
     , route : Route
     }
 
@@ -44,13 +46,14 @@ setMeetingForm : Model -> MeetingForm -> Model
 setMeetingForm model meetingForm =
     {model | meetingForm = meetingForm}
 
-initialModel : Route -> Model
-initialModel route =
+initialModel : Flags -> Route -> Model
+initialModel flags route =
     { meetings = RemoteData.Loading
     , meeting = RemoteData.Loading
     , showAddMeeting = False
     , meetingForm = { date = "", title = "" }
     , topicForm = { content = "" }
+    , flags = flags
     , route = route
     }
 

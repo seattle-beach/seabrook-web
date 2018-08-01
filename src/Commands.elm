@@ -7,43 +7,44 @@ import Json.Encode exposing (object, string, Value, encode)
 import Msgs exposing (Msg)
 import Models exposing (..)
 import RemoteData
+import Flags exposing (Flags)
 
 
-fetchMeetings : Cmd Msg
-fetchMeetings =
-    Http.get (baseUrl ++ "/meetings") meetingsDecoder
+fetchMeetings : Flags -> Cmd Msg
+fetchMeetings flags =
+    Http.get (flags.apiUri ++ "/meetings") meetingsDecoder
         |> RemoteData.sendRequest
         |> Cmd.map Msgs.OnFetchMeetings
 
 
-fetchMeeting : MeetingDate -> Cmd Msg
-fetchMeeting meetingDate =
-    Http.get (baseUrl ++ "/meetings/" ++ meetingDate) meetingDecoder
+fetchMeeting : Flags -> MeetingDate -> Cmd Msg
+fetchMeeting flags meetingDate =
+    Http.get (flags.apiUri ++ "/meetings/" ++ meetingDate) meetingDecoder
         |> RemoteData.sendRequest
         |> Cmd.map Msgs.OnFetchMeeting
 
 
-postMeeting : MeetingForm -> Cmd Msg
-postMeeting meetingForm =
-    Http.post (baseUrl ++ "/meetings/" ++ meetingForm.date)
+postMeeting : Flags -> MeetingForm -> Cmd Msg
+postMeeting flags meetingForm =
+    Http.post (flags.apiUri ++ "/meetings/" ++ meetingForm.date)
         (Http.jsonBody <| meetingEncoder meetingForm)
         meetingDecoder
         |> RemoteData.sendRequest
         |> Cmd.map Msgs.OnPostMeeting
 
 
-postTopic : MeetingDate -> TopicForm -> Cmd Msg
-postTopic date topicForm =
-    Http.post (baseUrl ++ "/meetings/" ++ date ++ "/topics")
+postTopic : Flags -> MeetingDate -> TopicForm -> Cmd Msg
+postTopic flags date topicForm =
+    Http.post (flags.apiUri ++ "/meetings/" ++ date ++ "/topics")
         (Http.jsonBody <| topicEncoder topicForm)
         meetingDecoder
         |> RemoteData.sendRequest
         |> Cmd.map Msgs.OnFetchMeeting
 
 
-voteTopic : MeetingDate -> TopicId -> Cmd Msg
-voteTopic date topicId =
-    Http.post (baseUrl ++ "/meetings/" ++ date ++ "/topics/" ++ (toString topicId))
+voteTopic : Flags -> MeetingDate -> TopicId -> Cmd Msg
+voteTopic flags date topicId =
+    Http.post (flags.apiUri ++ "/meetings/" ++ date ++ "/topics/" ++ (toString topicId))
         Http.emptyBody
         meetingDecoder
         |> RemoteData.sendRequest
@@ -59,11 +60,6 @@ meetingEncoder : MeetingForm -> Value
 meetingEncoder meeting =
     object
         [ ( "title", string meeting.title ) ]
-
-
-baseUrl : String
-baseUrl =
-    "http://localhost:9292"
 
 
 meetingsDecoder : Decode.Decoder (List Meeting)

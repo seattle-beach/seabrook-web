@@ -1,21 +1,21 @@
 module Main exposing (..)
 
-import Commands exposing (fetchMeetings, fetchMeeting)
 import Models exposing (Model, initialModel, Route(..))
 import Msgs exposing (Msg)
 import Navigation exposing (Location)
 import Routing
 import Update exposing (..)
 import View exposing (view)
+import Flags exposing (..)
 
 
-init : Location -> ( Model, Cmd Msg )
-init location =
+init : Flags -> Location -> ( Model, Cmd Msg )
+init flags location =
     let
         currentRoute = Routing.parseLocation location
-        command = commandFor currentRoute
+        command = commandFor currentRoute <| flags
     in
-        ( initialModel currentRoute, command )
+        ( initialModel flags currentRoute, command )
 
 
 subscriptions : Model -> Sub Msg
@@ -25,9 +25,9 @@ subscriptions model =
 
 -- MAIN
 
-main : Program Never Model Msg
+main : Program Flags Model Msg
 main =
-    Navigation.program Msgs.OnLocationChange
+    Navigation.programWithFlags Msgs.OnLocationChange
         { init = init
         , view = view
         , update = update
