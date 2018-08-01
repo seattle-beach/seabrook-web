@@ -5,6 +5,3 @@ applications:
     - route: seabrook.cfapps.io
   memory: 256M
   path: dist
-
-  env:
-    API_URI: https://seabrook-api.cfapps.io

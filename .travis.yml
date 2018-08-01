@@ -2,6 +2,9 @@ language: node_js
 node_js: node
 script: yarn build
 
+env:
+  - API_URI=https://seabrook-api.cfapps.io
+
 cache:
   directories:
     - elm-stuff
