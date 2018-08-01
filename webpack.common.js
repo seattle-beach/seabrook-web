@@ -3,7 +3,6 @@ const path = require('path');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  mode: 'production',
   entry: {
     app: [
       './src/assets/index.js'
@@ -33,22 +32,8 @@ module.exports = {
         exclude: /node_modules/,
         loader:  'file-loader?name=[name].[ext]',
       },
-      {
-        test:    /\.elm$/,
-        exclude: [/elm-stuff/, /node_modules/],
-        loader:  'elm-webpack-loader?verbose=true&warn=true',
-        options: {
-          debug: true,
-        }
-      },
     ],
 
     noParse: /\.elm$/,
   },
-
-  devServer: {
-    inline: true,
-    stats: { colors: true },
-  },
-
 };
