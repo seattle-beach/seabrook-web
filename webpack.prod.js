@@ -10,9 +10,6 @@ module.exports = merge(common, {
         test:    /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
         loader:  'elm-webpack-loader?verbose=true&warn=true',
-        options: {
-          debug: true,
-        }
       },
     ],
   },
