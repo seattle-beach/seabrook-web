@@ -3,7 +3,7 @@ module Meetings.List exposing (..)
 import Css exposing (marginBottom, px, rgba, backgroundColor, marginRight)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, href)
-import Html.Styled.Events exposing(onClick)
+import Html.Styled.Events exposing (onClick)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
 import Models exposing (Meeting, MeetingDate)
@@ -38,14 +38,16 @@ maybeList response =
         RemoteData.Failure error ->
             text (toString error)
 
+
 addMeetingForm : Bool -> Html Msg
 addMeetingForm showAddMeeting =
     let
-        content = if showAddMeeting then
-            meetingForm
-        else
-            button_ [ onClick (Msgs.ShowAddMeetingForm True) ]
-                [ text "Add Meeting" ]
+        content =
+            if showAddMeeting then
+                meetingForm
+            else
+                button_ [ onClick (Msgs.ShowAddMeetingForm True) ]
+                    [ text "Add Meeting" ]
     in
         div [ css [ marginBottom (px 16) ] ]
             [ content ]
@@ -54,10 +56,11 @@ addMeetingForm showAddMeeting =
 list : List Meeting -> Html Msg
 list meetings =
     let
-        meetingRows = meetings
-            |> List.sortBy .date
-            |> List.reverse
-            |> List.map meetingRow
+        meetingRows =
+            meetings
+                |> List.sortBy .date
+                |> List.reverse
+                |> List.map meetingRow
     in
         div [] meetingRows
 
@@ -69,6 +72,7 @@ meetingRow meeting =
             [ tapTarget [ viewDate meeting.date, text meeting.title ]
             ]
         ]
+
 
 viewDate : MeetingDate -> Html Msg
 viewDate date =

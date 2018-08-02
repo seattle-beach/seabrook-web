@@ -28,23 +28,28 @@ type alias TopicForm =
 
 setContent : String -> TopicForm -> TopicForm
 setContent content topicForm =
-    {topicForm | content = content}
+    { topicForm | content = content }
+
 
 setTopicForm : Model -> TopicForm -> Model
 setTopicForm model topicForm =
-    {model | topicForm = topicForm}
+    { model | topicForm = topicForm }
+
 
 setDate : MeetingDate -> MeetingForm -> MeetingForm
 setDate date meetingForm =
-    {meetingForm | date = date}
+    { meetingForm | date = date }
+
 
 setTitle : String -> MeetingForm -> MeetingForm
 setTitle title meetingForm =
-    {meetingForm | title = title}
+    { meetingForm | title = title }
+
 
 setMeetingForm : Model -> MeetingForm -> Model
 setMeetingForm model meetingForm =
-    {model | meetingForm = meetingForm}
+    { model | meetingForm = meetingForm }
+
 
 initialModel : Flags -> Route -> Model
 initialModel flags route =
@@ -58,15 +63,18 @@ initialModel flags route =
     }
 
 
-type alias MeetingDate = String
+type alias MeetingDate =
+    String
 
-type alias TopicId = Int
+
+type alias TopicId =
+    Int
 
 
 type alias Meeting =
     { date : String
     , title : String
-    , topics: (List Topic)
+    , topics : List Topic
     }
 
 

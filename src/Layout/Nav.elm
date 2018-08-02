@@ -6,24 +6,30 @@ import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, src, href)
 import Layout.Theme exposing (..)
 
+
 navHeader : Maybe String -> Html msg
 navHeader maybe =
     let
-        title = case maybe of
-            Just value -> value
-            Nothing -> "Seabrook"
+        title =
+            case maybe of
+                Just value ->
+                    value
+
+                Nothing ->
+                    "Seabrook"
     in
         div
-        [ css
-            [ backgroundColor theme.primary
-            , fontSize (px 36)
-            , padding (px 8)
-            , marginBottom (px 8)
+            [ css
+                [ backgroundColor theme.primary
+                , fontSize (px 36)
+                , padding (px 8)
+                , marginBottom (px 8)
+                ]
             ]
-        ]
-        [ homeIcon
-        , text title
-        ]
+            [ homeIcon
+            , text title
+            ]
+
 
 homeIcon : Html msg
 homeIcon =
@@ -39,6 +45,7 @@ homeIcon =
             []
         ]
 
+
 page : Maybe String -> List (Html msg) -> Html msg
 page maybeTitle children =
     div []
@@ -46,9 +53,11 @@ page maybeTitle children =
         , div [ css [ margin (px 16) ] ] children
         ]
 
+
 tapTarget : List (Html msg) -> Html msg
 tapTarget children =
-    span [ css
+    span
+        [ css
             [ margin (px 8)
             , padding (px 8)
             , backgroundColor theme.secondary

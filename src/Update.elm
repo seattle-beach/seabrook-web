@@ -16,9 +16,10 @@ update msg model =
 
         Msgs.OnFetchMeeting response ->
             let
-                emptyForm = Models.setContent "" model.topicForm
+                emptyForm =
+                    Models.setContent "" model.topicForm
             in
-              ( { model | meeting = response, topicForm = emptyForm }, Cmd.none )
+                ( { model | meeting = response, topicForm = emptyForm }, Cmd.none )
 
         Msgs.DoSubmitMeeting ->
             ( model, postMeeting model.flags model.meetingForm )
@@ -30,7 +31,8 @@ update msg model =
             ( model.topicForm
                 |> Models.setContent content
                 |> Models.setTopicForm model
-            , Cmd.none )
+            , Cmd.none
+            )
 
         Msgs.OnTopicVote date topicId ->
             ( model, voteTopic model.flags date topicId )
@@ -47,21 +49,26 @@ update msg model =
             ( model.meetingForm
                 |> Models.setDate date
                 |> Models.setMeetingForm model
-            , Cmd.none )
+            , Cmd.none
+            )
 
         Msgs.OnAddMeetingTitle title ->
             ( model.meetingForm
                 |> Models.setTitle title
                 |> Models.setMeetingForm model
-            , Cmd.none )
+            , Cmd.none
+            )
 
         Msgs.ShowAddMeetingForm shouldShow ->
             ( { model | showAddMeeting = shouldShow }, Cmd.none )
 
         Msgs.OnLocationChange location ->
             let
-                newRoute = parseLocation location
-                command = commandFor newRoute
+                newRoute =
+                    parseLocation location
+
+                command =
+                    commandFor newRoute
             in
                 ( { model | route = newRoute }, command model.flags )
 

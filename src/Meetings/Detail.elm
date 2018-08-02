@@ -35,9 +35,11 @@ newTopicForm meeting formData =
         , button_ [ type_ "submit" ] [ text "Add Topic" ]
         ]
 
+
 inputField : TopicForm -> Html Msg
 inputField formData =
-    input [ type_ "text"
+    input
+        [ type_ "text"
         , onInput Msgs.OnAddTopicContent
         , placeholder "Topic"
         , value formData.content
@@ -54,12 +56,14 @@ show meeting formData =
             ]
         ]
 
-topicRows : Meeting -> (List (Html Msg))
+
+topicRows : Meeting -> List (Html Msg)
 topicRows meeting =
     meeting.topics
         |> List.sortBy .votes
         |> List.reverse
         |> List.map (topicRow meeting.date)
+
 
 topicRow : MeetingDate -> Topic -> Html Msg
 topicRow meetingDate topic =

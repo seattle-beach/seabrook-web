@@ -6,6 +6,7 @@ import Html.Styled.Events exposing (onSubmit, onInput)
 import Msgs exposing (Msg)
 import Layout.Button exposing (..)
 
+
 meetingForm : Html Msg
 meetingForm =
     form [ onSubmit Msgs.DoSubmitMeeting ]

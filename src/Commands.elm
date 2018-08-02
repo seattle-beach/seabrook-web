@@ -56,6 +56,7 @@ topicEncoder topic =
     object
         [ ( "content", string topic.content ) ]
 
+
 meetingEncoder : MeetingForm -> Value
 meetingEncoder meeting =
     object

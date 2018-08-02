@@ -31,6 +31,7 @@ page model =
         NotFoundRoute ->
             notFoundView
 
+
 notFoundView : Html msg
 notFoundView =
     div [] [ text "Not found" ]

@@ -23,6 +23,7 @@ parseLocation location =
         Nothing ->
             NotFoundRoute
 
+
 meetingPath : MeetingDate -> String
 meetingPath date =
     "#meetings/" ++ date

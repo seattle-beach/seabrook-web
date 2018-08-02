@@ -12,8 +12,11 @@ import Flags exposing (..)
 init : Flags -> Location -> ( Model, Cmd Msg )
 init flags location =
     let
-        currentRoute = Routing.parseLocation location
-        command = commandFor currentRoute <| flags
+        currentRoute =
+            Routing.parseLocation location
+
+        command =
+            commandFor currentRoute <| flags
     in
         ( initialModel flags currentRoute, command )
 
@@ -23,7 +26,9 @@ subscriptions model =
     Sub.none
 
 
+
 -- MAIN
+
 
 main : Program Flags Model Msg
 main =
