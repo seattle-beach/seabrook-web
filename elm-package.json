@@ -2,7 +2,7 @@
     "version": "1.0.0",
     "summary": "web frontend for Seabrook",
     "repository": "https://github.com/seattle-beach/seabrook-web.git",
-    "license": "BSD3",
+    "license": "MIT",
     "source-directories": [
         "src"
     ],
