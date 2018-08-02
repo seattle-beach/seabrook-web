@@ -21,9 +21,8 @@ navHeader maybe =
         div
             [ css
                 [ backgroundColor theme.primary
-                , fontSize (px 36)
-                , padding (px 8)
-                , marginBottom (px 8)
+                , padding (Css.em 0.5)
+                , marginBottom (px 16)
                 ]
             ]
             [ homeIcon
@@ -38,7 +37,7 @@ homeIcon =
         [ img
             [ src "/home.svg"
             , css
-                [ height (px 24)
+                [ height (px 48)
                 , margin4 zero (px 16) zero (px 8)
                 ]
             ]
