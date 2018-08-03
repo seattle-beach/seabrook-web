@@ -10,16 +10,21 @@ button_ : List (Attribute msg) -> List (Html msg) -> Html msg
 button_ attributes children =
     let
         custom =
+            [ borderRadius constants.borderRadius ]
+    in
+        buttonNoRadius (css custom :: attributes) children
+
+
+buttonNoRadius : List (Attribute msg) -> List (Html msg) -> Html msg
+buttonNoRadius attributes children =
+    let
+        custom =
             [ padding (px 10)
             , outline none
-            , backgroundColor theme.primary
-
-            -- TODO: I don't understand types well enough to know why this doesn't work
-            -- , border none
+            , backgroundColor theme.secondary
             , border zero
-            , borderRadius (px 4)
-            , hover [ backgroundColor <| lighten_ theme.primary 100 ]
-            , active [ backgroundColor theme.primary ]
+            , hover [ backgroundColor <| lighten_ theme.secondary 100 ]
+            , active [ backgroundColor theme.secondary ]
             ]
     in
         button (css custom :: attributes) children

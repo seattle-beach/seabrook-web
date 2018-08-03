@@ -1,8 +1,17 @@
 body {
   font-family: "Verdana", sans-serif;
+  height: 100%;
 }
 
 a, a:visited {
   text-decoration: inherit;
   color: inherit;
+}
+
+#main {
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
 }

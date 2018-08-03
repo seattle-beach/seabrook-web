@@ -2,6 +2,7 @@ module Layout.Nav exposing (page, navHeader, tapTarget)
 
 import Msgs exposing (Msg)
 import Css exposing (..)
+import Css.Colors exposing (white)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, src, href)
 import Layout.Theme exposing (..)
@@ -33,7 +34,7 @@ navHeader maybe =
 homeIcon : Html msg
 homeIcon =
     a
-        [ href "/" ]
+        [ href "/#" ]
         [ img
             [ src "/home.svg"
             , css
@@ -59,7 +60,7 @@ tapTarget children =
         [ css
             [ margin (px 8)
             , padding (px 8)
-            , backgroundColor theme.secondary
+            , backgroundColor white
             , hover [ backgroundColor <| lighten_ theme.secondary 100 ]
             , active [ backgroundColor theme.secondary ]
             , display inlineBlock

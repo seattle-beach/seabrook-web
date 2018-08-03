@@ -1,6 +1,7 @@
 module Meetings.Detail exposing (..)
 
-import Css exposing (marginTop, px)
+import Css exposing (..)
+import Css.Colors exposing (white)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, type_, placeholder, value)
 import Html.Styled.Events exposing (onSubmit, onInput, onClick)
@@ -8,8 +9,8 @@ import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
 import Models exposing (Meeting, Topic, TopicForm, MeetingDate)
 import Layout.Nav exposing (..)
+import Layout.Theme exposing (..)
 import Layout.Button exposing (..)
-import Layout.Table exposing (..)
 
 
 view : WebData Meeting -> TopicForm -> Html Msg
@@ -49,11 +50,9 @@ inputField formData =
 
 show : Meeting -> TopicForm -> Html Msg
 show meeting formData =
-    div []
+    div [ css [ displayFlex, flexDirection column ] ]
         [ newTopicForm meeting formData
-        , table_ []
-            [ tbody_ [] (topicRows meeting)
-            ]
+        , div [] (topicRows meeting)
         ]
 
 
@@ -67,8 +66,44 @@ topicRows meeting =
 
 topicRow : MeetingDate -> Topic -> Html Msg
 topicRow meetingDate topic =
-    tr_ []
-        [ td_ [] [ text topic.content ]
-        , td_ [] [ text (toString topic.votes) ]
-        , td_ [] [ button_ [ onClick (Msgs.OnTopicVote meetingDate topic.id) ] [ text "+1" ] ]
-        ]
+    let
+        voteButton =
+            buttonNoRadius
+                [ onClick (Msgs.OnTopicVote meetingDate topic.id)
+                , css
+                    [ fontSize (pct 125)
+                    , paddingLeft (px 16)
+                    , minWidth (px 100)
+                    , borderRadius4 constants.borderRadius zero zero constants.borderRadius
+                    ]
+                ]
+                [ text "+"
+                , span
+                    [ css
+                        [ verticalAlign Css.sub
+                        , fontSize (pct 50)
+                        ]
+                    ]
+                    [ text (toString topic.votes) ]
+                ]
+    in
+        div
+            [ css
+                [ margin (px 16)
+                , borderRadius constants.borderRadius
+                , displayFlex
+                , alignItems stretch
+                , flexDirection row
+                ]
+            ]
+            [ voteButton
+            , div
+                [ css
+                    [ padding (px 24)
+                    , backgroundColor white
+                    , width (pct 100)
+                    , borderRadius4 zero constants.borderRadius constants.borderRadius zero
+                    ]
+                ]
+                [ text topic.content ]
+            ]

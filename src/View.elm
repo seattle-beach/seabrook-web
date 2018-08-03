@@ -1,11 +1,14 @@
 module View exposing (view)
 
+import Css exposing (..)
 import Html
 import Html.Styled exposing (Html, div, text, toUnstyled)
+import Html.Styled.Attributes exposing (css)
 import Msgs exposing (Msg)
 import Models exposing (..)
 import Meetings.List
 import Meetings.Detail
+import Layout.Theme exposing (..)
 
 
 view : Model -> Html.Html Msg
@@ -15,7 +18,7 @@ view model =
 
 styledView : Model -> Html Msg
 styledView model =
-    div []
+    div [ css [ backgroundColor theme.primaryDark, height (pct 100) ] ]
         [ page model ]
 
 
