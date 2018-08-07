@@ -22,3 +22,6 @@ http://package.elm-lang.org/packages/elm-lang/html/2.0.0/Html
 
 Also a bunch of convenient examples:
 http://elm-lang.org/examples
+
+Colors?
+https://coolors.co/0e7c7b-4f3989-2aacd3-ae6674-f6f7f8
