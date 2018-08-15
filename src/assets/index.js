@@ -3,6 +3,7 @@
 // Require assets so they get copied to dist
 require('./index.html');
 require('./home.svg');
+require('./pencil.svg');
 require('./reset.css');
 require('./global.css');
 

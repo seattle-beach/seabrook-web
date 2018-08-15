@@ -3,7 +3,7 @@ module Meetings.Detail exposing (..)
 import Css exposing (..)
 import Css.Colors exposing (white)
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css, type_, placeholder, value)
+import Html.Styled.Attributes exposing (css, type_, placeholder, value, src)
 import Html.Styled.Events exposing (onSubmit, onInput, onClick)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
@@ -68,44 +68,64 @@ topicRows meeting =
 
 topicRow : MeetingDate -> Topic -> Html Msg
 topicRow meetingDate topic =
-    let
-        voteButton =
-            buttonNoRadius
-                [ onClick (Msgs.OnTopicVote meetingDate topic.id)
-                , css
-                    [ fontSize (pct 125)
-                    , paddingLeft (px 16)
-                    , minWidth (px 100)
-                    , borderRadius4 constants.borderRadius zero zero constants.borderRadius
-                    ]
-                ]
-                [ text "+"
-                , span
-                    [ css
-                        [ verticalAlign Css.sub
-                        , fontSize (pct 50)
-                        ]
-                    ]
-                    [ text (toString topic.votes) ]
-                ]
-    in
-        div
+    div
+        [ css
+            [ margin (px 16)
+            , borderRadius constants.borderRadius
+            , displayFlex
+            , alignItems stretch
+            , flexDirection row
+            ]
+        ]
+        [ voteButton meetingDate topic
+        , div
             [ css
-                [ margin (px 16)
-                , borderRadius constants.borderRadius
-                , displayFlex
-                , alignItems stretch
-                , flexDirection row
+                [ padding (px 24)
+                , backgroundColor white
+                , width (pct 100)
                 ]
             ]
-            [ voteButton
-            , div
-                [ css
-                    [ padding (px 24)
-                    , backgroundColor white
-                    , width (pct 100)
-                    , borderRadius4 zero constants.borderRadius constants.borderRadius zero
-                    ]
-                ]
-                [ text topic.content ]
+            [ text topic.content ]
+        , editButton meetingDate topic
+        ]
+
+
+voteButton : MeetingDate -> Topic -> Html Msg
+voteButton meetingDate topic =
+    buttonNoRadius
+        [ onClick (Msgs.OnTopicVote meetingDate topic.id)
+        , css
+            [ fontSize (pct 125)
+            , paddingLeft (px 16)
+            , minWidth (px 100)
+            , borderRadius4 constants.borderRadius zero zero constants.borderRadius
             ]
+        ]
+        [ text "+"
+        , span
+            [ css
+                [ verticalAlign Css.sub
+                , fontSize (pct 50)
+                ]
+            ]
+            [ text (toString topic.votes) ]
+        ]
+
+
+editButton : MeetingDate -> Topic -> Html Msg
+editButton meetingDate topic =
+    buttonNoRadius
+        [ onClick (Msgs.OnTopicVote meetingDate topic.id)
+        , css
+            [ fontSize (pct 125)
+            , paddingLeft (px 16)
+            , minWidth (px 100)
+            , borderRadius4 zero constants.borderRadius constants.borderRadius zero
+            ]
+        ]
+        [ img
+            [ src "/pencil.svg"
+            , css [ height (px 48) ]
+            ]
+            []
+        ]
