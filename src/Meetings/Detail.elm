@@ -59,6 +59,8 @@ show meeting formData =
 topicRows : Meeting -> List (Html Msg)
 topicRows meeting =
     meeting.topics
+        |> List.sortBy .id
+        |> List.reverse
         |> List.sortBy .votes
         |> List.reverse
         |> List.map (topicRow meeting.date)
