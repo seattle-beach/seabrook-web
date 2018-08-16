@@ -8,6 +8,7 @@ type alias Model =
     { meetings : WebData (List Meeting)
     , meeting : WebData Meeting
     , showAddMeeting : Bool
+    , showEditTopic : Maybe TopicId
     , meetingForm : MeetingForm
     , topicForm : TopicForm
     , flags : Flags
@@ -56,6 +57,7 @@ initialModel flags route =
     { meetings = RemoteData.Loading
     , meeting = RemoteData.Loading
     , showAddMeeting = False
+    , showEditTopic = Nothing
     , meetingForm = { date = "", title = "" }
     , topicForm = { content = "" }
     , flags = flags

@@ -62,6 +62,9 @@ update msg model =
         Msgs.ShowAddMeetingForm shouldShow ->
             ( { model | showAddMeeting = shouldShow }, Cmd.none )
 
+        Msgs.ShowEditTopicForm topicId ->
+            ( { model | showEditTopic = Just topicId }, Cmd.none )
+
         Msgs.OnLocationChange location ->
             let
                 newRoute =

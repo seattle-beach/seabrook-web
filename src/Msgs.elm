@@ -13,6 +13,7 @@ type Msg
     = OnFetchMeetings (WebData (List Meeting))
     | OnFetchMeeting (WebData Meeting)
     | ShowAddMeetingForm Bool
+    | ShowEditTopicForm TopicId
     | DoSubmitMeeting
     | OnPostMeeting (WebData Meeting)
     | OnAddMeetingDate MeetingDate

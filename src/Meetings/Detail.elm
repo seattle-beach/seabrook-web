@@ -7,14 +7,14 @@ import Html.Styled.Attributes exposing (css, type_, placeholder, value, src)
 import Html.Styled.Events exposing (onSubmit, onInput, onClick)
 import RemoteData exposing (WebData)
 import Msgs exposing (Msg)
-import Models exposing (Meeting, Topic, TopicForm, MeetingDate)
+import Models exposing (Meeting, Topic, TopicId, TopicForm, MeetingDate)
 import Layout.Nav exposing (..)
 import Layout.Theme exposing (..)
 import Layout.Button exposing (..)
 
 
-view : WebData Meeting -> TopicForm -> Html Msg
-view response formData =
+view : WebData Meeting -> TopicForm -> Maybe TopicId -> Html Msg
+view response formData editingTopic =
     case response of
         RemoteData.NotAsked ->
             page Nothing [ text "" ]
@@ -23,7 +23,7 @@ view response formData =
             page Nothing [ text "Loading..." ]
 
         RemoteData.Success meeting ->
-            page (Just (String.join " " [ meeting.date, meeting.title ])) [ show meeting formData ]
+            page (Just (String.join " " [ meeting.date, meeting.title ])) [ show meeting formData editingTopic ]
 
         RemoteData.Failure error ->
             page Nothing [ text (toString error) ]
@@ -48,26 +48,39 @@ inputField formData =
         []
 
 
-show : Meeting -> TopicForm -> Html Msg
-show meeting formData =
+show : Meeting -> TopicForm -> Maybe TopicId -> Html Msg
+show meeting formData editingTopic =
     div [ css [ displayFlex, flexDirection column ] ]
         [ newTopicForm meeting formData
-        , div [] (topicRows meeting)
+        , div [] (topicRows meeting editingTopic)
         ]
 
 
-topicRows : Meeting -> List (Html Msg)
-topicRows meeting =
+topicRows : Meeting -> Maybe TopicId -> List (Html Msg)
+topicRows meeting editingTopic =
     meeting.topics
         |> List.sortBy .id
         |> List.reverse
         |> List.sortBy .votes
         |> List.reverse
-        |> List.map (topicRow meeting.date)
+        |> List.map (topicRow meeting.date editingTopic)
 
 
-topicRow : MeetingDate -> Topic -> Html Msg
-topicRow meetingDate topic =
+topicRow : MeetingDate -> Maybe TopicId -> Topic -> Html Msg
+topicRow meetingDate editingTopic topic =
+    case editingTopic of
+        Just editingTopicId ->
+            if topic.id == editingTopicId then
+                text "TODO"
+            else
+                displayTopic meetingDate topic
+
+        Nothing ->
+            displayTopic meetingDate topic
+
+
+displayTopic : MeetingDate -> Topic -> Html Msg
+displayTopic meetingDate topic =
     div
         [ css
             [ margin (px 16)
@@ -115,7 +128,7 @@ voteButton meetingDate topic =
 editButton : MeetingDate -> Topic -> Html Msg
 editButton meetingDate topic =
     buttonNoRadius
-        [ onClick (Msgs.OnTopicVote meetingDate topic.id)
+        [ onClick (Msgs.ShowEditTopicForm topic.id)
         , css
             [ fontSize (pct 125)
             , paddingLeft (px 16)
