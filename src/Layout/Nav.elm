@@ -50,7 +50,13 @@ page : Maybe String -> List (Html msg) -> Html msg
 page maybeTitle children =
     div []
         [ navHeader maybeTitle
-        , div [ css [ margin (px 16) ] ] children
+        , div
+            [ css
+                [ margin (px 16)
+                , marginBottom zero
+                ]
+            ]
+            children
         ]
 
 
