@@ -10,8 +10,12 @@
     "webpack-dev-server": "^3.1.5",
     "webpack-merge": "^4.1.4"
   },
+  "devDependencies": {
+    "elm-test": "0.18.12"
+  },
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "client": "webpack-dev-server --config webpack.dev.js --port 3000"
+    "client": "webpack-dev-server --config webpack.dev.js --port 3000",
+    "test": "elm-test"
   }
 }

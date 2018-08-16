@@ -1,6 +1,8 @@
 language: node_js
 node_js: node
-script: yarn build
+script:
+  - yarn test
+  - yarn build
 
 env:
   - API_URI=https://seabrook-api.cfapps.io
@@ -29,6 +31,8 @@ install:
   - '[ -e "$(yarn bin)/webpack-old" ] || mv $(yarn bin)/webpack $(yarn bin)/webpack-old'
   - printf "#\041/bin/bash\n\necho \"Running webpack with sysconfcpus -n 2\"\n\n$TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 webpack-old \"\$@\"" > $(yarn bin)/webpack
   - chmod +x $(yarn bin)/webpack
+  - travis_retry elm package install --yes
+  - cd tests
   - travis_retry elm package install --yes
 
 
