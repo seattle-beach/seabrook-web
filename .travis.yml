@@ -10,6 +10,7 @@ env:
 cache:
   directories:
     - elm-stuff
+    - tests/elm-stuff
     - sysconfcpus
     - node_modules
 
