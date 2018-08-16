@@ -1,4 +1,4 @@
-# seabrook-web
+# seabrook-web [![Build Status](https://travis-ci.org/seattle-beach/seabrook-web.svg?branch=master)](https://travis-ci.org/seattle-beach/seabrook-web)
 
 Web frontend for [Seabrook](https://github.com/seattle-beach/seabrook)
 
