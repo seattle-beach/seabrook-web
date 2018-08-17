@@ -29,10 +29,15 @@ before_install:
 # build time improvement see: https://git.io/fNoua
 install:
   - yarn install
+  - echo "Preparing compilation..."
   - '[ -e "$(yarn bin)/webpack-old" ] || mv $(yarn bin)/webpack $(yarn bin)/webpack-old'
   - printf "#\041/bin/bash\n\necho \"Running webpack with sysconfcpus -n 2\"\n\n$TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 webpack-old \"\$@\"" > $(yarn bin)/webpack
   - chmod +x $(yarn bin)/webpack
   - travis_retry elm package install --yes
+  - echo "Preparing tests..."
+  - '[ -e "$(yarn bin)/elm-make-old" ] || mv $(yarn bin)/elm-make $(yarn bin)/elm-make-old'
+  - printf "#\041/bin/bash\n\necho \"Running elm-make with sysconfcpus -n 2\"\n\n$TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 elm-make-old \"\$@\"" > $(yarn bin)/elm-make
+  - chmod +x $(yarn bin)/elm-make
   - cd tests
   - PATH=$PATH:../node_modules/.bin travis_retry elm package install --yes
 
