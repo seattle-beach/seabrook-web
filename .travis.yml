@@ -34,7 +34,7 @@ install:
   - chmod +x $(yarn bin)/webpack
   - travis_retry elm package install --yes
   - cd tests
-  - travis_retry elm package install --yes
+  - PATH=$PATH:../node_modules/.bin travis_retry elm package install --yes
 
 
 deploy:
