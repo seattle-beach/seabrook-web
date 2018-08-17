@@ -67,7 +67,7 @@ tapTarget children =
             [ margin (px 8)
             , padding (px 8)
             , backgroundColor white
-            , hover [ backgroundColor <| lighten_ theme.secondary 100 ]
+            , hover [ backgroundColor <| lighten_ theme.secondary 0.2 ]
             , active [ backgroundColor theme.secondary ]
             , display inlineBlock
             ]

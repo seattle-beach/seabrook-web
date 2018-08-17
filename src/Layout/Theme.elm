@@ -1,6 +1,7 @@
 module Layout.Theme exposing (..)
 
 import Css exposing (..)
+import Color as Mix
 
 
 theme :
@@ -9,15 +10,35 @@ theme :
     , secondary : Color
     }
 theme =
-    { primary = rgb 121 232 217
-    , primaryDark = rgb 43 158 142
+    { primary = lighten_ (hsl 179 0.8 0.27) 0.2
+    , primaryDark = hsl 179 0.8 0.27
     , secondary = rgb 120 180 255
     }
 
 
-lighten_ : Color -> Int -> Color
+lighten_ : Color -> Float -> Color
 lighten_ color amount =
-    rgba (color.red + amount) (color.green + amount) (color.blue + amount) color.alpha
+    let
+        { hue, saturation, lightness, alpha } =
+            toHsl color
+    in
+        hsla hue saturation (lightness * (1 + amount)) alpha
+
+
+darken_ : Color -> Float -> Color
+darken_ color amount =
+    let
+        { hue, saturation, lightness, alpha } =
+            toHsl color
+    in
+        hsla hue saturation (lightness * (1 - amount)) alpha
+
+
+toHsl { red, green, blue, alpha } =
+    Mix.rgba red green blue alpha
+        |> Mix.toHsl
+        -- Elm core colors use "standard elm angles", AKA radians. CSS unadorned units are degrees.
+        |> \({ hue } as c) -> { c | hue = (hue * 180 / pi) }
 
 
 constants : { borderRadius : Px }
