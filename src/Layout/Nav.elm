@@ -1,4 +1,4 @@
-module Layout.Nav exposing (page, navHeader, tapTarget)
+module Layout.Nav exposing (page, navHeader, tapTarget, item)
 
 import Msgs exposing (Msg)
 import Css exposing (..)
@@ -60,16 +60,25 @@ page maybeTitle children =
         ]
 
 
-tapTarget : List (Html msg) -> Html msg
-tapTarget children =
-    span
-        [ css
-            [ margin (px 8)
-            , padding (px 8)
-            , backgroundColor white
-            , hover [ backgroundColor <| lighten_ theme.secondary 0.2 ]
-            , active [ backgroundColor theme.secondary ]
-            , display inlineBlock
-            ]
+tapTarget : List (Attribute msg) -> List (Html msg) -> Html msg
+tapTarget attributes children =
+    css
+        [ margin (px 8)
+        , hover [ backgroundColor <| lighten_ theme.secondary 0.2 ]
+        , active [ backgroundColor theme.secondary ]
+        , display inlineBlock
+        , borderRadius constants.borderRadius
         ]
-        children
+        :: attributes
+        |> (flip item) children
+
+
+item : List (Attribute msg) -> List (Html msg) -> Html msg
+item attributes children =
+    css
+        [ padding (px 24)
+        , backgroundColor white
+        , width (pct 100)
+        ]
+        :: attributes
+        |> (flip div) children

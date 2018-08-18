@@ -91,13 +91,8 @@ displayTopic meetingDate topic =
             ]
         ]
         [ voteButton meetingDate topic
-        , div
-            [ css
-                [ padding (px 24)
-                , backgroundColor white
-                , width (pct 100)
-                ]
-            ]
+        , item
+            []
             [ text topic.content ]
         , editButton meetingDate topic
         ]

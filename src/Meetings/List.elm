@@ -1,6 +1,6 @@
 module Meetings.List exposing (..)
 
-import Css exposing (marginBottom, px, rgba, backgroundColor, marginRight)
+import Css exposing (..)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, href)
 import Html.Styled.Events exposing (onClick)
@@ -67,9 +67,15 @@ list meetings =
 
 meetingRow : Meeting -> Html Msg
 meetingRow meeting =
-    div []
-        [ a [ href (meetingPath meeting.date) ]
-            [ tapTarget [ viewDate meeting.date, text meeting.title ]
+    div
+        []
+        [ a
+            [ href (meetingPath meeting.date)
+            , css [ displayFlex ]
+            ]
+            [ tapTarget
+                []
+                [ viewDate meeting.date, text meeting.title ]
             ]
         ]
 
