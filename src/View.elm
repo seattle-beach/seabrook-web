@@ -18,7 +18,12 @@ view model =
 
 styledView : Model -> Html Msg
 styledView model =
-    div [ css [ backgroundColor theme.primaryDark ] ]
+    div
+        [ css
+            [ backgroundColor theme.primaryDark
+            , minHeight (pct 100)
+            ]
+        ]
         [ page model ]
 
 
