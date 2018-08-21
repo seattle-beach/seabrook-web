@@ -21,7 +21,7 @@ navHeader maybe =
     in
         div
             [ css
-                [ backgroundColor theme.primary
+                [ backgroundColor white
                 , padding (Css.em 0.5)
                 , marginBottom (px 16)
                 ]

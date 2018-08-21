@@ -4,15 +4,14 @@ import Css exposing (..)
 import Color as Mix
 
 
-theme :
-    { primary : Color
-    , primaryDark : Color
-    , secondary : Color
-    }
 theme =
-    { primary = lighten_ (hsl 179 0.8 0.27) 0.2
+    { primary = lighten_ (hsl 179 0.8 0.27) 1
     , primaryDark = hsl 179 0.8 0.27
-    , secondary = rgb 120 180 255
+    , secondary = hex "94C5CC"
+
+    --, secondary = rgb 120 180 255
+    , pivotalTeal = rgb 0 134 116
+    , pivotalMint = rgb 0 174 158
     }
 
 

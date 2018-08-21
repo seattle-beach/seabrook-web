@@ -20,7 +20,7 @@ styledView : Model -> Html Msg
 styledView model =
     div
         [ css
-            [ backgroundColor theme.primaryDark
+            [ backgroundColor theme.pivotalTeal
             , minHeight (pct 100)
             ]
         ]
