@@ -10,7 +10,7 @@ theme :
     , secondary : Color
     }
 theme =
-    { primary = lighten_ (hsl 179 0.8 0.27) 0.2
+    { primary = lighten_ (hsl 179 0.8 0.27) 1
     , primaryDark = hsl 179 0.8 0.27
     , secondary = rgb 120 180 255
     }
