@@ -1,7 +1,7 @@
 module Update exposing (..)
 
 import Msgs exposing (Msg)
-import Models exposing (Model, Route(..))
+import Models exposing (..)
 import Commands exposing (..)
 import Routing exposing (parseLocation)
 import RemoteData
@@ -12,14 +12,21 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Msgs.OnFetchMeetings response ->
-            ( { model | meetings = response, showAddMeeting = False }, Cmd.none )
+            ( { model
+                | meetings = response
+                , showAddMeeting = False
+                , meetingForm = emptyMeetingForm
+              }
+            , Cmd.none
+            )
 
         Msgs.OnFetchMeeting response ->
-            let
-                emptyForm =
-                    Models.setContent "" model.topicForm
-            in
-                ( { model | meeting = response, topicForm = emptyForm }, Cmd.none )
+            ( { model
+                | meeting = response
+                , topicForm = emptyTopicForm
+              }
+            , Cmd.none
+            )
 
         Msgs.DoSubmitMeeting ->
             ( model, postMeeting model.flags model.meetingForm )

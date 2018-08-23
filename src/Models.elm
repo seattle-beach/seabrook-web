@@ -52,14 +52,24 @@ setMeetingForm model meetingForm =
     { model | meetingForm = meetingForm }
 
 
+emptyMeetingForm : MeetingForm
+emptyMeetingForm =
+    { date = "", title = "" }
+
+
+emptyTopicForm : TopicForm
+emptyTopicForm =
+    { content = "" }
+
+
 initialModel : Flags -> Route -> Model
 initialModel flags route =
     { meetings = RemoteData.Loading
     , meeting = RemoteData.Loading
     , showAddMeeting = False
     , showEditTopic = Nothing
-    , meetingForm = { date = "", title = "" }
-    , topicForm = { content = "" }
+    , meetingForm = emptyMeetingForm
+    , topicForm = emptyTopicForm
     , flags = flags
     , route = route
     }
