@@ -31,9 +31,15 @@ view response formData editingTopic =
 
 newTopicForm : Meeting -> TopicForm -> Html Msg
 newTopicForm meeting formData =
-    form [ onSubmit (Msgs.DoSubmitTopic meeting.date) ]
+    form [ onSubmit (Msgs.DoSubmitTopic meeting.date), css [ marginBottom (px 16) ] ]
         [ inputField formData
-        , button_ [ type_ "submit" ] [ text "Add Topic" ]
+        , button_
+            [ type_ "submit"
+            , css
+                [ borderRadius4 zero constants.borderRadius constants.borderRadius zero
+                ]
+            ]
+            [ text "Add Topic!" ]
         ]
 
 
@@ -44,15 +50,19 @@ inputField formData =
         , onInput Msgs.OnAddTopicContent
         , placeholder "Topic"
         , value formData.content
+        , css
+            [ borderRadius4 constants.borderRadius zero zero constants.borderRadius
+            , padding (px 8)
+            ]
         ]
         []
 
 
 show : Meeting -> TopicForm -> Maybe TopicId -> Html Msg
 show meeting formData editingTopic =
-    div [ css [ displayFlex, flexDirection column ] ]
+    div []
         [ newTopicForm meeting formData
-        , div [] (topicRows meeting editingTopic)
+        , div [ css [ displayFlex, flexDirection column ] ] (topicRows meeting editingTopic)
         ]
 
 
@@ -83,7 +93,7 @@ displayTopic : MeetingDate -> Topic -> Html Msg
 displayTopic meetingDate topic =
     div
         [ css
-            [ margin (px 16)
+            [ margin2 (px 8) zero
             , borderRadius constants.borderRadius
             , displayFlex
             , alignItems stretch

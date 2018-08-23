@@ -19,7 +19,7 @@ buttonNoRadius : List (Attribute msg) -> List (Html msg) -> Html msg
 buttonNoRadius attributes children =
     let
         custom =
-            [ padding (px 10)
+            [ padding (px 8)
             , outline none
             , backgroundColor theme.secondary
             , border zero

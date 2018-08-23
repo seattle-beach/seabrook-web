@@ -22,7 +22,7 @@ navHeader maybe =
         div
             [ css
                 [ backgroundColor theme.primary
-                , padding (Css.em 0.5)
+                , padding (px 16)
                 , marginBottom (px 16)
                 ]
             ]
@@ -63,7 +63,7 @@ page maybeTitle children =
 tapTarget : List (Attribute msg) -> List (Html msg) -> Html msg
 tapTarget attributes children =
     css
-        [ margin (px 8)
+        [ margin2 (px 8) zero
         , hover [ backgroundColor <| lighten_ theme.secondary 0.2 ]
         , active [ backgroundColor theme.secondary ]
         , display inlineBlock
