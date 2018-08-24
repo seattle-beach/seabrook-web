@@ -34,6 +34,7 @@ darken_ color amount =
         hsla hue saturation (lightness * (1 - amount)) alpha
 
 
+toHsl : Color -> { hue : Float, saturation : Float, lightness : Float, alpha : Float }
 toHsl { red, green, blue, alpha } =
     Mix.rgba red green blue alpha
         |> Mix.toHsl

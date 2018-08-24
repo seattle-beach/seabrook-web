@@ -1,6 +1,5 @@
 module Layout.Nav exposing (page, navHeader, tapTarget, item)
 
-import Msgs exposing (Msg)
 import Css exposing (..)
 import Css.Colors exposing (white)
 import Html.Styled exposing (..)

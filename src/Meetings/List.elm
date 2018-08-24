@@ -11,8 +11,6 @@ import Routing exposing (meetingPath)
 import Meetings.Form exposing (meetingForm)
 import Layout.Nav exposing (..)
 import Layout.Button exposing (button_)
-import Layout.Table exposing (..)
-import Layout.Theme exposing (..)
 
 
 view : WebData (List Meeting) -> Bool -> Html Msg

@@ -1,7 +1,6 @@
 module Meetings.Detail exposing (..)
 
 import Css exposing (..)
-import Css.Colors exposing (white)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, type_, placeholder, value, src)
 import Html.Styled.Events exposing (onSubmit, onInput, onClick)
