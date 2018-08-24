@@ -30,7 +30,12 @@ view response formData editingTopic =
 
 newTopicForm : Meeting -> TopicForm -> Html Msg
 newTopicForm meeting formData =
-    form [ onSubmit (Msgs.DoSubmitTopic meeting.date), css [ marginBottom (px 16) ] ]
+    form_ meeting formData (Msgs.DoSubmitTopic meeting.date) "Add Topic!"
+
+
+form_ : Meeting -> TopicForm -> Msg -> String -> Html Msg
+form_ meeting formData message buttonText =
+    form [ onSubmit message ]
         [ inputField formData
         , button_
             [ type_ "submit"
@@ -38,7 +43,7 @@ newTopicForm meeting formData =
                 [ borderRadius4 zero constants.borderRadius constants.borderRadius zero
                 ]
             ]
-            [ text "Add Topic!" ]
+            [ text buttonText ]
         ]
 
 
@@ -61,7 +66,7 @@ show : Meeting -> TopicForm -> Maybe TopicId -> Html Msg
 show meeting formData editingTopic =
     div []
         [ newTopicForm meeting formData
-        , div [ css [ displayFlex, flexDirection column ] ] (topicRows meeting editingTopic)
+        , div [ css [ displayFlex, flexDirection column, marginTop (px 16) ] ] (topicRows meeting editingTopic)
         ]
 
 
