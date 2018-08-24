@@ -29,10 +29,20 @@ update msg model =
             )
 
         Msgs.DoSubmitMeeting ->
-            ( model, postMeeting model.flags model.meetingForm )
+            let
+                command =
+                    validateNotEmpty model.meetingForm .title <|
+                        postMeeting model.flags model.meetingForm
+            in
+                ( model, command )
 
         Msgs.DoSubmitTopic date ->
-            ( model, postTopic model.flags date model.topicForm )
+            let
+                command =
+                    validateNotEmpty model.topicForm .content <|
+                        postTopic model.flags date model.topicForm
+            in
+                ( model, command )
 
         Msgs.OnAddTopicContent content ->
             ( model.topicForm
@@ -94,3 +104,18 @@ commandFor route =
 
         _ ->
             \_ -> Cmd.none
+
+
+validateNotEmpty : form -> (form -> String) -> Cmd Msg -> Cmd Msg
+validateNotEmpty form extractor success =
+    let
+        valid =
+            extractor form
+                |> String.trim
+                |> String.isEmpty
+                |> not
+    in
+        if valid then
+            success
+        else
+            Cmd.none
